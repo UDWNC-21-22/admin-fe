@@ -1,0 +1,43 @@
+.header{
+    text-align: center;
+}
+
+.container{
+    display: flex;
+    padding: 2rem;
+}
+
+.img{
+    height: 10rem;
+    width: auto;
+}
+
+.admin{
+    overflow: hidden;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    background-color:coral;
+    border: 0.0625rem solid #dadce0;
+    -webkit-border-radius: 1rem;
+    border-radius: 1rem;
+    height: auto;
+    width: 50%;
+    padding: 2rem;
+    margin: 2rem;
+}
+
+.user{
+    overflow: hidden;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    background-color:greenyellow;
+    border: 0.0625rem solid #dadce0;
+    -webkit-border-radius: 1rem;
+    border-radius: 1rem;
+    height: auto;
+    width: 50%;
+    padding: 2rem;
+    margin: 2rem;
+}

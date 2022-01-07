@@ -1,15 +1,29 @@
 import React, { useState } from "react";
 import MaterialTable from "material-table";
+import { Launch } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 import { list_admin } from "../../dummy-data/admin";
+
 const AdminList = () => {
+  const navigate = useNavigate()
+
   const [tableData, setTableData] = useState(list_admin);
   const columns = [
     {
       title: "ID",
       field: "id",
       sorting: false,
-      filtering: false
+      filtering: false,
+      render: (rowData) => (
+        <div
+          style={{
+            width: "2rem"
+          }}
+        >
+          {rowData.id}
+        </div>
+      ),
     },
     { title: "Full name", field: "fullName", sorting: false },
     { title: "Email", field: "email", sorting: false },
@@ -47,6 +61,16 @@ const AdminList = () => {
               setTimeout(() => resolve(), 1000);
             }),
         }}
+        actions={[
+          {
+            icon: () => <Launch />,
+            tooltip: 'More detail',
+            onClick: (event, rowData) => {
+              navigate(`${rowData.id}`)
+            }                
+          }
+        ]}
+        //onRowClick={(rowData)=>{navigate(`${rowData?.id}`)}}
         onSelectionChange={(selectedRows) => console.log(selectedRows)}
         options={{
           sorting: true,

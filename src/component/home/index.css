@@ -41,3 +41,18 @@
     padding: 2rem;
     margin: 2rem;
 }
+
+.classroom{
+    overflow: hidden;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    background-color:rgb(243, 106, 186);
+    border: 0.0625rem solid #dadce0;
+    -webkit-border-radius: 1rem;
+    border-radius: 1rem;
+    height: auto;
+    width: 50%;
+    padding: 2rem;
+    margin: 2rem;
+}

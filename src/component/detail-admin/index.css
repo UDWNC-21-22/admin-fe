@@ -1,0 +1,25 @@
+.detail-container{
+    border: 0.0625rem solid #dadce0;
+    -webkit-border-radius: 1rem;
+    border-radius: 1rem;
+    height: auto;
+    width: 50%;
+    padding: 2rem;
+    margin: auto;
+}
+
+.information{
+    display: flex;
+    margin: 1rem;
+}
+
+.title{
+    font-weight: bold;
+    width: 50%;
+    margin: auto;
+}
+
+.info{
+    width: 50%;
+    margin: auto;
+}

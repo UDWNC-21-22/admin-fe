@@ -1,14 +1,9 @@
 import React, { useState } from "react";
 import MaterialTable from "material-table";
-import { list_user } from "../../dummy-data/user";
-import { Launch } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
 
-const UserList = () => {
-  const navigate=useNavigate()
-  
-  const [tableData, setTableData] = useState(list_user);
-
+import { list_class } from "../../dummy-data/class";
+const ClassList = () => {
+  const [tableData, setTableData] = useState(list_class);
   const columns = [
     {
       title: "ID",
@@ -25,47 +20,14 @@ const UserList = () => {
         </div>
       ),
     },
-    { title: "Student ID", field: "studentId", sorting: false },
-    { title: "Full name", field: "fullname", sorting: false },
-    { title: "Email", field: "email", sorting: false },
-    {
-      title: "Username",
-      field: "username",
-      align: "center",
-      searchable: false,
-      sorting: false,
-    },
-    {
-      title: "Password",
-      field: "password",
-      align: "center",
-      searchable: false,
-      sorting: false,
-    },
+    { title: "Class name", field: "name", sorting: false },
+    { title: "Description", field: "description", align: "center", searchable: false, sorting: false },
     { title: "Create Time", field: "createAt", align: "center", searchable: false },
-
-    {
-      title: "Status",
-      field: "status",
-      align: "center",
-      render: (rowData) => (
-        <div
-          style={{
-            background: rowData.status === "block" ? "#f90000aa" : "#008000aa",
-            borderRadius: "4px",
-            paddingLeft: 5
-          }}
-        >
-          {rowData.status}
-        </div>
-      ),
-      searchable: false,
-    },
-  ];
+  ]
 
   return (
     <div>
-      <h1 align="center">User List</h1>
+      <h1 align="center">Admin List</h1>
 
       <MaterialTable
         columns={columns}
@@ -92,16 +54,6 @@ const UserList = () => {
               setTimeout(() => resolve(), 1000);
             }),
         }}
-        actions={[
-          {
-            icon: () => <Launch />,
-            tooltip: 'More detail',
-            onClick: (event, rowData) => {
-              navigate(`${rowData.id}`)
-            }                
-          }
-        ]}
-        //onRowClick={(rowData)=>{navigate(`${rowData?.id}`)}}
         onSelectionChange={(selectedRows) => console.log(selectedRows)}
         options={{
           sorting: true,
@@ -128,7 +80,7 @@ const UserList = () => {
         }}
       />
     </div>
-  );
+  )
 };
 
-export default UserList;
+export default ClassList;

@@ -6,7 +6,7 @@ import { list_user } from "../../dummy-data/user";
 
 const UserDetail = () => {
   const { userId } = useParams();
-  const user = list_user.find((acc) => (acc.id = userId));
+  const user = list_user.find((acc) => (acc.id === userId));
   const fullname = user?.fullname;
   const email = user?.email;
   const username = user?.username;
@@ -34,14 +34,13 @@ const UserDetail = () => {
     { title: "Name", field: "className", sorting: false },
     {
       title: "Teacher",
-      field: "list_class",
-      align: "center",
-      render: (rowData) => (
+      field: "owner",
+      render: (
+        rowData //rowData.owner ? rowData.owner.join(', ') : 'null',
+      ) => (
         <div>
-          {rowData.list_class?.owner.map((item)=>{
-            return(
-              <li>item.name</li>
-            )
+          {rowData?.owner.map((item) => {
+            return <li>{item.name}</li>;
           })}
         </div>
       ),
@@ -75,27 +74,35 @@ const UserDetail = () => {
         </div>
       </div>
 
-      <MaterialTable
-        columns={columns}
-        data={tableData} 
-        options={{
-          sorting: true,
-          search: false,
-          filtering: false,
-          paging: true,
-          addRowPosition: "first",
-          actionsColumnIndex: -1,
-          selection: false,
-          showSelectAllCheckbox: false,
-          showTextRowsSelected: false,
-          grouping: false,
-          columnsButton: true,
-          showTitle: false,
-          rowStyle: (data, index) =>
-            index % 2 === 0 ? { background: "#f5f5f5" } : null,
-          headerStyle: { background: "#f44336", color: "#fff" },
-        }}     
-      />
+      <div
+        style={{
+          borderRadius: "4px",
+          width: "80%",
+          margin: "auto",
+          padding:'2rem'
+        }}
+      >
+        <MaterialTable
+          columns={columns}
+          data={tableData}
+          options={{
+            sorting: true,
+            search: false,
+            filtering: false,
+            paging: false,
+            actionsColumnIndex: -1,
+            selection: false,
+            showSelectAllCheckbox: false,
+            showTextRowsSelected: false,
+            grouping: false,
+            columnsButton: false,
+            showTitle: false,
+            rowStyle: (data, index) =>
+              index % 2 === 0 ? { background: "#f5f5f5" } : null,
+            headerStyle: { background: "#f44336", color: "#fff" },
+          }}
+        />
+      </div>
     </div>
   );
 };

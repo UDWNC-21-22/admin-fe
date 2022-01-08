@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import MaterialTable from "material-table";
-
+import { Launch } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import { list_class } from "../../dummy-data/class";
 const ClassList = () => {
+  const navigate=useNavigate()
+
   const [tableData, setTableData] = useState(list_class);
   const columns = [
     {
@@ -53,6 +56,19 @@ const ClassList = () => {
               setTableData(updatedData);
               setTimeout(() => resolve(), 1000);
             }),
+        }}
+        actions={[
+          {
+            icon: () => <Launch />,
+            tooltip: 'More detail',
+            onClick: (event, rowData) => {
+              navigate(`${rowData.id}`)
+            }                
+          }
+        ]}
+        onRowClick={(event,rowData)=>{
+          navigate(`${rowData.id}`)
+          event.stopPropagation()
         }}
         onSelectionChange={(selectedRows) => console.log(selectedRows)}
         options={{

@@ -4,8 +4,10 @@ import { list_admin } from "../../dummy-data/admin";
 import "./index.css";
 
 const AdminDetail = () => {
-  const adminId = useParams();
-  const admin = list_admin.find((acc) => (acc.id = adminId));
+  const {adminId} = useParams();
+  const admin = list_admin.find((acc) => (acc.id === adminId));
+
+  console.log(admin)
   const fullname = admin?.fullName;
   const email = admin?.email;
   const username = admin?.username;

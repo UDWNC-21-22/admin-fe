@@ -123,7 +123,6 @@ const Login = () => {
                     <Divider className={classes.divider} />
                 </div>
                 <form onSubmit={login}>
-
                     <TextField onChange={(e) => setUsername(e.target.value)} label='Username' placeholder='Enter username' fullWidth required />
                     <TextField onChange={(e) => setPassword(e.target.value)} label='Password' placeholder='Enter password' type='password' fullWidth required />
                     <FormControlLabel

@@ -101,7 +101,10 @@ const UserList = () => {
             }                
           }
         ]}
-        //onRowClick={(rowData)=>{navigate(`${rowData?.id}`)}}
+        onRowClick={(event,rowData)=>{
+          navigate(`${rowData.id}`)
+          event.stopPropagation()
+        }}
         onSelectionChange={(selectedRows) => console.log(selectedRows)}
         options={{
           sorting: true,

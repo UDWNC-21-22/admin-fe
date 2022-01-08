@@ -55,7 +55,7 @@ export const list_user = [
     },
     {
         id: '2',
-        fullname:'tran thi yen tram',
+        fullname:'tran thi yen tin',
         email: 'tram@gmail.com',
         username: 'tin',
         password: '123',
@@ -109,7 +109,7 @@ export const list_user = [
     },
     {
         id: '3',
-        fullname:'tran thi yen tram',
+        fullname:'tran thi yen',
         email: 'tram@gmail.com',
         username: 'yen',
         password: '123',

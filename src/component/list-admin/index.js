@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import MaterialTable from "material-table";
 import { Launch } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-
+import MaterialTable,{ MTableToolbar } from "material-table";
 import { list_admin } from "../../dummy-data/admin";
 
 const AdminList = () => {
@@ -40,12 +39,6 @@ const AdminList = () => {
         columns={columns}
         data={tableData}
         editable={{
-          onRowAdd: (newRow) =>
-            new Promise((resolve, reject) => {
-              setTableData([...tableData, newRow]);
-
-              setTimeout(() => resolve(), 500);
-            }),
           onRowUpdate: (newRow, oldRow) =>
             new Promise((resolve, reject) => {
               const updatedData = [...tableData];
@@ -70,12 +63,15 @@ const AdminList = () => {
             }                
           }
         ]}
-        //onRowClick={(rowData)=>{navigate(`${rowData?.id}`)}}
+        onRowClick={(event,rowData)=>{
+          navigate(`${rowData.id}`)
+          event.stopPropagation()
+        }}
         onSelectionChange={(selectedRows) => console.log(selectedRows)}
         options={{
           sorting: true,
           search: true,
-          searchFieldAlignment: "right",
+          searchFieldAlignment: "left",
           searchAutoFocus: true,
           searchFieldVariant: "standard",
           filtering: false,
@@ -83,7 +79,6 @@ const AdminList = () => {
           pageSizeOptions: [5, 10, 50],
           pageSize: 5,
           paginationType: "stepped",
-          addRowPosition: "first",
           actionsColumnIndex: -1,
           selection: false,
           showSelectAllCheckbox: false,
@@ -94,6 +89,16 @@ const AdminList = () => {
           rowStyle: (data, index) =>
             index % 2 === 0 ? { background: "#f5f5f5" } : null,
           headerStyle: { background: "#f44336", color: "#fff" },
+        }}
+        components={{
+          Toolbar: props => (
+            <div>
+              <MTableToolbar {...props} />
+              <div style={{padding: '1rem'}}>
+                <button onClick={()=>{navigate('/create-admin')}}>Create Admin Account</button>
+              </div>
+            </div>
+          ),
         }}
       />
     </div>

@@ -39,77 +39,19 @@ const getInfo = async () => {
     })
 }
 
-const getMyGrade = async () => {
+const getListAdmin = async () => {
     return AxiosBasic({
-        url: urls.getMyGrade,
+        url: urls.getListAdmin,
         method: 'GET'
-    })
-}
-
-const authenticate = ()=>{
-    return AxiosBasic({
-        url: urls.authenticate,
-        method: 'GET'
-    })
-}
-
-const googleLogin = async ({fullname, email, access_token}) => {
-    return AxiosBasic ({
-        url: urls.googleLogin,
-        method: 'POST',
-        data:{
-            fullname,
-            email,
-            access_token
-        }
-    })
-}
-
-const changePassword = async ({curPass, changePass, confirmPass}) => {
-    return AxiosBasic({
-        url: urls.changePassword,
-        method: "POST",
-        data:{
-            currentPassword: curPass,
-            changePassword: changePass,
-            confirmPassword: confirmPass
-        }
-    })
-}
-
-const changeProfile = async ({fullname, email}) => {
-    return AxiosBasic({
-        url: urls.changeProfile,
-        method: "POST",
-        data:{
-            fullname,
-            email,
-        }
-    })
-}
-
-const updateStudentId = async ({studentId}) => {
-    console.log('ult',studentId);
-    return AxiosBasic({
-        url: urls.updateStudentId,
-        method: "POST",
-        data:{
-            studentId,
-        }
     })
 }
 
 const authApi = {
     login,
-    googleLogin,
     register,
     logout,
     getInfo,
-    getMyGrade,
-    changeProfile,
-    changePassword,
-    authenticate,
-    updateStudentId,
+    getListAdmin,
 }
 
 export default authApi

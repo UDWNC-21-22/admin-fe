@@ -31,7 +31,7 @@ const UserDetail = () => {
         </div>
       ),
     },
-    { title: "Name", field: "className", sorting: false },
+    { title: "Class Name", field: "className", sorting: false },
     {
       title: "Teacher",
       field: "owner",

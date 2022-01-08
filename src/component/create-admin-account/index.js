@@ -1,28 +1,53 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { list_admin } from "../../dummy-data/admin";
 import {
   TextField,
   Button
 } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
+import authApi from '../../apis/auth.api';
+import Notification from '../Notifications/Notification';
 
 const CreateAdmin = () => {
-  const navigate = useNavigate();
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [createAt, setCreateAte] = useState("");
+  const [Notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
 
-  const create = () => {
-      navigate('/admin')
+  const create = async (e) => {
+    try {
+      e.preventDefault();
+          await authApi.register({
+              username: username,
+              password: password,
+              fullname: fullname,
+              email: email
+          });
+          setNotify({
+              isOpen: true,
+              message: 'Create new admin account successfully!',
+              type: 'success'
+          })
+
+          window.open("/admin", "_self", "")
+  }
+  catch (err) {
+      console.log("ERROR login, err: ", err)
+
+      if (Object.keys(err).length > 0) {
+          alert(err?.message)
+      }
+      else {
+          // An error has occurred
+          alert('An error has occurred')
+      }
+  }
  };
   return (
     <div>
       <h1 align="center">Create Admin Account</h1>
 
-        <form onSubmit={create} style={{
+        <form onSubmit={create} 
+        style={{
             width:'50%',
             margin:'auto',
             align:'center',
@@ -71,6 +96,9 @@ const CreateAdmin = () => {
             Create
           </Button>
         </form>
+        <Notification
+                Notify={Notify}
+                setNotify={setNotify} />
     </div>
   );
 };

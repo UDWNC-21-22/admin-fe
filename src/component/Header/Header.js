@@ -14,63 +14,49 @@ import {
   Tab,
   Button,
 } from "@material-ui/core";
-import { Add, Apps, Logout } from "@mui/icons-material";
 import React, { useState } from "react";
 import { useStyles } from "./style";
 import { useNavigate } from "react-router-dom";
 import { Link as LinkDom } from "react-router-dom";
-// import authApi from "../../apis/auth.api";
-// import cookie from 'react-cookies';
-// import { useLocalContext } from "../../context/context";
+import authApi from "../../apis/auth.api";
+import cookie from 'react-cookies';
+import { useLocalContext } from "../../context/context";
 
 const Header = (isLogin, { children }) => {
   const classes = useStyles();
   const navigate = useNavigate();
-
-  //Add and join dialog
-  const [anchorEl, setAnchorEl] = useState(null);
-  const handleClick = (event) => setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
 
   //Profile dialog
   const [anchorElProfile, setAnchorElProfile] = useState(null);
   const handleClickProfile = (event) => setAnchorElProfile(event.currentTarget);
   const handleCloseProfile = () => setAnchorElProfile(null);
 
-  // const {
-  //   dataInfo,
-  //   setCreateClassDialog,
-  //   setJoinClassDialog,
-  //   setDataInfo,
-  //   classId,
-  //   setClassId,
-  //   isTeacher,
-  // } = useLocalContext();
+  const {
+    setDataInfo
+  } = useLocalContext();
 
-  // //Log out
-  // const logout = async () => {
-  //   try {
-  //     await authApi.logout();
-  //     cookie.remove('user_data');
-  //     cookie.remove('access_token');
-  //     setDataInfo({});
-  //     setClassId('')
-  //     navigate("/login")
-  //     //console.log(cookie.load('access_token'));
+  //Log out
+  const logout = async () => {
+    try {
+      const mess = await authApi.logout();
+      cookie.remove('user_data');
+      cookie.remove('access_token');
+      setDataInfo({})
+      alert(mess?.message)
+      navigate("/login")
+    }
+    catch (err) {
+      console.log("ERROR login, err: ", err)
 
-  //   }
-  //   catch (err) {
-  //     console.log("ERROR login, err: ", err)
-
-  //     if (Object.keys(err).length > 0) {
-  //       alert(err?.message)
-  //     }
-  //     else {
-  //       // An error has occurred
-  //       alert('An error has occurred')
-  //     }
-  //   }
-  // }
+      if (Object.keys(err).length > 0) {
+        alert(err?.message)
+      }
+      else {
+        // An error has occurred
+        alert('An error has occurred')
+      }
+    }
+  }
 
   return (
     <>
@@ -131,7 +117,7 @@ const Header = (isLogin, { children }) => {
                       Profile
                     </MenuItem>
                     <Divider />
-                    <MenuItem onClick={""}>
+                    <MenuItem onClick={logout}>
                       Logout
                     </MenuItem>
                   </Menu>

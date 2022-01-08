@@ -158,7 +158,7 @@ export const list_user = [
                 ]
             }
         ],
-        status: 'block',
+        status: 'blocked',
         studentId:''
     }
 ]

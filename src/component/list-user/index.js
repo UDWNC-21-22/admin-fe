@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MaterialTable from "material-table";
 import { list_user } from "../../dummy-data/user";
-import { Launch } from "@mui/icons-material";
+import { Block } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 const UserList = () => {
@@ -15,6 +15,7 @@ const UserList = () => {
       field: "id",
       sorting: false,
       filtering: false,
+      editable: false,
       render: (rowData) => (
         <div
           style={{
@@ -26,24 +27,29 @@ const UserList = () => {
       ),
     },
     { title: "Student ID", field: "studentId", sorting: false },
-    { title: "Full name", field: "fullname", sorting: false },
-    { title: "Email", field: "email", sorting: false },
+    { title: "Full name", field: "fullname", sorting: false, editable: false },
+    { title: "Email", field: "email", sorting: false, editable: false },
     {
       title: "Username",
       field: "username",
       align: "center",
       searchable: false,
       sorting: false,
+      editable: false
     },
-    {
-      title: "Password",
-      field: "password",
-      align: "center",
-      searchable: false,
-      sorting: false,
-    },
-    { title: "Create Time", field: "createAt", align: "center", searchable: false },
-
+    { title: "Create Time", field: "createAt", align: "center", searchable: false, editable: false,
+    render: (rowData) => (
+      <div
+        style={{
+          borderRadius: "4px",
+          width: '20rem',
+          margin:'auto',
+          alignItems:'center'
+        }}
+      >
+        {rowData.createAt}
+      </div>
+    ), },
     {
       title: "Status",
       field: "status",
@@ -51,15 +57,18 @@ const UserList = () => {
       render: (rowData) => (
         <div
           style={{
-            background: rowData.status === "block" ? "#f90000aa" : "#008000aa",
+            background: rowData.status === "blocked" ? "#f90000aa" : "#008000aa",
             borderRadius: "4px",
-            paddingLeft: 5
+            width: '5rem',
+            margin:'auto',
+            alignItems:'center'
           }}
         >
           {rowData.status}
         </div>
       ),
       searchable: false,
+      editable: false
     },
   ];
 
@@ -71,12 +80,6 @@ const UserList = () => {
         columns={columns}
         data={tableData}
         editable={{
-          onRowAdd: (newRow) =>
-            new Promise((resolve, reject) => {
-              setTableData([...tableData, newRow]);
-
-              setTimeout(() => resolve(), 500);
-            }),
           onRowUpdate: (newRow, oldRow) =>
             new Promise((resolve, reject) => {
               const updatedData = [...tableData];
@@ -84,20 +87,20 @@ const UserList = () => {
               setTableData(updatedData);
               setTimeout(() => resolve(), 500);
             }),
-          onRowDelete: (selectedRow) =>
-            new Promise((resolve, reject) => {
-              const updatedData = [...tableData];
-              updatedData.splice(selectedRow.tableData.id, 1);
-              setTableData(updatedData);
-              setTimeout(() => resolve(), 1000);
-            }),
         }}
         actions={[
           {
-            icon: () => <Launch />,
-            tooltip: 'More detail',
+            icon: () => <Block />,
+            tooltip: 'Lock/Unlock account',
             onClick: (event, rowData) => {
-              navigate(`${rowData.id}`)
+              const updatedData = [...tableData];
+              if (updatedData[rowData.tableData.id].status==='blocked'){
+                updatedData[rowData.tableData.id].status = 'active';
+              }
+              else{
+                updatedData[rowData.tableData.id].status = 'blocked';
+              }
+              setTableData(updatedData);
             }                
           }
         ]}
@@ -123,7 +126,7 @@ const UserList = () => {
           showSelectAllCheckbox: false,
           showTextRowsSelected: false,
           grouping: false,
-          columnsButton: true,
+          columnsButton: false,
           showTitle: false,
           rowStyle: (data, index) =>
             index % 2 === 0 ? { background: "#f5f5f5" } : null,

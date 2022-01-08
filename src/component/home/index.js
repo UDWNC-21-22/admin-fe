@@ -4,14 +4,38 @@ import admin from '../../images/admin.png'
 import user from '../../images/man.png'
 import classroom from '../../images/class.png'
 import {useNavigate} from 'react-router-dom'
+import authApi from "../../apis/auth.api";
+import { useLocalContext } from "../../context/context";
+import cookie from "react-cookies";
 
 const Home = () => {
     const navigate = useNavigate()
+    const {list_admin, setListAdmin} = useLocalContext();
+
+    const adminClick = async () =>{
+        try {
+            const response = await authApi.getListAdmin();
+            setListAdmin(response.data)
+            cookie.save('list_admin', response.data);
+
+            console.log(list_admin)
+
+            navigate('/admin')
+          } catch (err) {
+            if (Object.keys(err).length > 0) {
+              alert(err?.message);
+            } else {
+              alert("An error has occurred");
+            }
+          }
+    }
 
     return (
         <>
         <div className="container">
-            <div className="admin" onClick={()=>{navigate('/admin')}}>
+            <div className="admin" onClick={()=>{
+                adminClick()
+                }}>
                 <img className="img" src={admin} alt=""/>
                 <h1>Manage admin accounts</h1>
             </div>

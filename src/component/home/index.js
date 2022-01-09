@@ -18,10 +18,7 @@ const Home = () => {
     try {
       const response = await authApi.getListAdmin();
       setListAdmin(response.data);
-      cookie.save("list_admin", response.data);
-
-      console.log(list_admin);
-
+      cookie.save('list_admin',response.data)
       navigate("/admin");
     } catch (err) {
       if (Object.keys(err).length > 0) {
@@ -36,9 +33,6 @@ const Home = () => {
     try {
       const response = await authApi.getListUser();
       setListUser(response.data);
-      cookie.save("list_user", response.data);
-
-      console.log(list_user);
 
       navigate("/user");
     } catch (err) {
@@ -54,9 +48,6 @@ const Home = () => {
     try {
       const response = await authApi.getListClass();
       setListClass(response.data);
-      cookie.save("list_class", response.data);
-
-      console.log(list_class);
 
       navigate("/class");
     } catch (err) {

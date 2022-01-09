@@ -10,10 +10,11 @@ export function useLocalContext() {
 export function ContextProvider({ children }) {
   const [dataInfo, setDataInfo] = useState(cookie.load('user_data'));
   const [list_admin, setListAdmin] = useState(cookie.load('list_admin'));
-  const [list_user, setListUser] = useState(cookie.load('list_user'));
-  const [list_class, setListClass] = useState(cookie.load('list_class'));
+  const [list_user, setListUser] = useState([]);
+  const [list_class, setListClass] = useState([]);
   const [authLogin, setAuthLogin] = useState(false)
-  const [classId, setClassId]=useState('');
+  const [classDetail, setClassDetail]=useState('');
+  const [userDetail, setUserDetail]=useState('');
 
   const value = {
     dataInfo, setDataInfo,
@@ -21,7 +22,8 @@ export function ContextProvider({ children }) {
     list_user, setListUser,
     list_class, setListClass,
     authLogin, setAuthLogin,
-    classId, setClassId,
+    classDetail, setClassDetail,
+    userDetail, setUserDetail
   };
   return <AddContext.Provider value={value}>{children}</AddContext.Provider>;
 }

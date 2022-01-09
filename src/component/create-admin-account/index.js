@@ -31,8 +31,7 @@ const CreateAdmin = () => {
         message: "Create new admin account successfully!",
         type: "success",
       });
-
-      window.open("/admin", "_self", "")
+      navigate('/admin')
     } catch (err) {
       console.log("ERROR login, err: ", err);
 

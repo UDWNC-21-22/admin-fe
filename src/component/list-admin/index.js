@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MaterialTable, { MTableToolbar } from "material-table";
-import cookie from "react-cookies";
 import authApi from "../../apis/auth.api";
 import { useLocalContext } from "../../context/context";
+import cookie from "react-cookies";
 
 const AdminList = () => {
   const navigate = useNavigate();
   const {list_admin,setListAdmin} = useLocalContext();
+  const [tableData,setTableData] = useState(list_admin);
 
   useEffect(()=>{
     const fetchData = async () => {
       try {
         const response = await authApi.getListAdmin();
-        setListAdmin(response.data);
-        cookie.save("list_admin", response.data);
-      } catch (e) {}
+        setListAdmin(response.data)
+        setTableData(response.data)
+        cookie.save('list_admin',response.data)
+
+      } catch (e) {
+        console.log(e.message)
+      }
   }
   fetchData()
-  }, [setListAdmin]);
-
-  const list = cookie.load("list_admin");
-
-  const [tableData] = useState(list);
+  }, [list_admin]);
 
   const columns = [
     {
@@ -77,7 +78,6 @@ const AdminList = () => {
               navigate(`${rowData.id}`);
               event.stopPropagation();
             }}
-            onSelectionChange={(selectedRows) => console.log(selectedRows)}
             options={{
               sorting: true,
               search: true,

@@ -6,7 +6,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import authApi from '../../apis/auth.api';
 import cookie from 'react-cookies';
 import {useNavigate} from 'react-router-dom'
-import { list_admin } from '../../dummy-data/admin';
 import { useLocalContext } from '../../context/context';
 
 const Login = () => {

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import MaterialTable from "material-table";
 import { useNavigate } from "react-router-dom";
-import cookie from "react-cookies";
+import { useLocalContext } from "../../context/context";
+import authApi from "../../apis/auth.api";
 
 const ClassList = () => {
   const navigate = useNavigate();
-  const list_class = cookie.load("list_class");
+  const {list_class} = useLocalContext();
+  const {classDetail, setClassDetail} = useLocalContext();
 
   const [tableData] = useState(list_class);
   const columns = [
@@ -56,14 +58,21 @@ const ClassList = () => {
           <MaterialTable
             columns={columns}
             data={tableData}
-            onRowClick={(event, rowData) => {
-              navigate(`${rowData.id}`);
-              event.stopPropagation();
+            onRowClick={ async (event,rowData)=>{
+              try {
+                const response = await authApi.getDetailClass(rowData.id);
+                setClassDetail(response.data)
+                
+                navigate(`${rowData.id}`)
+                event.stopPropagation()
+              } catch (e) {
+                console.log(e.message)
+              }
             }}
             options={{
               sorting: true,
               search: true,
-              searchFieldAlignment: "right",
+              searchFieldAlignment: "left",
               searchAutoFocus: true,
               searchFieldVariant: "standard",
               filtering: false,
@@ -80,7 +89,7 @@ const ClassList = () => {
               showTitle: false,
               rowStyle: (data, index) =>
                 index % 2 === 0 ? { background: "#f5f5f5" } : null,
-              headerStyle: { background: "#f44336", color: "#fff" },
+              headerStyle: { background: "#f36aba", color: "#fff" },
             }}
           />
         </div>

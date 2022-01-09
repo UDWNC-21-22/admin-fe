@@ -109,7 +109,7 @@ function App() {
             />            
             <Route
             exact
-            path="/class/:userId"
+            path="/user/:userId"
             element={
               <AuthMiddleware>
                 <UserDetail />

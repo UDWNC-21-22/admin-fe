@@ -110,10 +110,10 @@ const Header = ({ children }) => {
                     }}
                     transformOrigin={{ horizontal: "right", vertical: "top" }}
                   >
-                    <MenuItem component={LinkDom} to="profile">
+                    {/* <MenuItem component={LinkDom} to="profile">
                       Profile
                     </MenuItem>
-                    <Divider />
+                    <Divider /> */}
                     <MenuItem onClick={logout}>
                       Logout
                     </MenuItem>

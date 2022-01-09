@@ -1,17 +1,20 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { list_class } from "../../dummy-data/class";
+import { useLocalContext } from "../../context/context";
 import MaterialTable from "material-table";
 
 const ClassDetail = () => {
-  const { classId } = useParams();
-  const classroom = list_class.find((acc) => acc.id === classId);
+  const { classDetail, setClassDetail } = useLocalContext();
+  const classroom = classDetail?.info
 
   const name = classroom?.name;
   const description = classroom?.description;
-  const createAt = classroom?.createAt;
-  const member = classroom?.member;
-  const owner = classroom?.owner;
+  let createAt = classroom?.createAt;
+  if (!createAt){
+    createAt = "1/7/2022 03:24:00 PM"
+  }
+
+  const member = classDetail?.student;
+  const owner = classDetail?.owner;
 
   const [tableData, setTableData] = useState(member);
 
@@ -27,7 +30,7 @@ const ClassDetail = () => {
             width: "2rem",
           }}
         >
-          {rowData.id}
+          {rowData.id.slice(0, 5)}
         </div>
       ),
     },
@@ -50,7 +53,7 @@ const ClassDetail = () => {
             width: "2rem",
           }}
         >
-          {rowData.id}
+          {rowData.id.slice(0, 5)}
         </div>
       ),
     },
@@ -104,7 +107,7 @@ const ClassDetail = () => {
             columnsButton: false,
             rowStyle: (data, index) =>
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
-            headerStyle: { background: "#f44336", color: "#fff" },
+            headerStyle: { background: "#f36aba", color: "#fff" },
           }}
         />
       </div>
@@ -134,7 +137,7 @@ const ClassDetail = () => {
             columnsButton: false,
             rowStyle: (data, index) =>
               index % 2 === 0 ? { background: "#f5f5f5" } : null,
-            headerStyle: { background: "#f44336", color: "#fff" },
+            headerStyle: { background: "#f36aba", color: "#fff" },
           }}
         />
       </div>

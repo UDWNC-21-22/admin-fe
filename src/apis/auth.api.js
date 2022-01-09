@@ -60,7 +60,7 @@ const getListClass = async () => {
     })
 }
 
-const updateStudentId = async (user, studentId) => {
+const updateStudentId = async ({user, studentId}) => {
     return AxiosBasic({
         url: urls.updateStudentId,
         method: 'POST',
@@ -71,9 +71,20 @@ const updateStudentId = async (user, studentId) => {
     })
 }
 
+const updateStatus = async ({user, status}) => {
+    return AxiosBasic({
+        url: urls.updateStatus,
+        method: 'POST',
+        data:{
+            user: user,
+            status: status
+        }
+    })
+}
+
 const getDetailClass = async (id) => {
     return AxiosBasic({
-        url: urls.getDetailClass +id,
+        url: urls.getDetailClass + id,
         method: 'GET'
     })
 }
@@ -103,6 +114,7 @@ const authApi = {
     getDetailUser,
     getDetailClass,
     updateStudentId,
+    updateStatus,
     authenticate
 }
 

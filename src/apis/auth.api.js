@@ -60,6 +60,38 @@ const getListClass = async () => {
     })
 }
 
+const updateStudentId = async (user, studentId) => {
+    return AxiosBasic({
+        url: urls.updateStudentId,
+        method: 'POST',
+        data:{
+            user: user,
+            studentId: studentId
+        }
+    })
+}
+
+const getDetailClass = async (id) => {
+    return AxiosBasic({
+        url: urls.getDetailClass +id,
+        method: 'GET'
+    })
+}
+
+const getDetailUser = async (id) => {
+    return AxiosBasic({
+        url: urls.getDetailUser + id,
+        method: 'GET'
+    })
+}
+
+const authenticate = ()=>{
+    return AxiosBasic({
+        url: urls.authenticate,
+        method: 'GET'
+    })
+}
+
 const authApi = {
     login,
     register,
@@ -67,7 +99,11 @@ const authApi = {
     getInfo,
     getListAdmin,
     getListClass,
-    getListUser
+    getListUser,
+    getDetailUser,
+    getDetailClass,
+    updateStudentId,
+    authenticate
 }
 
 export default authApi

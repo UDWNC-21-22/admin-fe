@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MaterialTable, { MTableToolbar } from "material-table";
 import cookie from "react-cookies";
+import authApi from "../../apis/auth.api";
+import { useLocalContext } from "../../context/context";
 
 const AdminList = () => {
   const navigate = useNavigate();
-  const list_admin = cookie.load("list_admin");
+  const {list_admin,setListAdmin} = useLocalContext();
 
-  const [tableData] = useState(list_admin);
+  useEffect(()=>{
+    const fetchData = async () => {
+      try {
+        const response = await authApi.getListAdmin();
+        setListAdmin(response.data);
+        cookie.save("list_admin", response.data);
+      } catch (e) {}
+  }
+  fetchData()
+  }, [setListAdmin]);
+
+  const list = cookie.load("list_admin");
+
+  const [tableData] = useState(list);
 
   const columns = [
     {

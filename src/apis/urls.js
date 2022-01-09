@@ -6,4 +6,8 @@ module.exports = {
     getListAdmin: '/admin/list-admin',
     getListUser: '/admin/list-user',
     getListClass: '/admin/list-class',
+    updateStudentId: '/admin/update-student-id',
+    getDetailClass: '/admin/detail-class/',
+    getDetailUser: '/admin/detail-user/',
+    authenticate: '/admin/authenticate'
 }

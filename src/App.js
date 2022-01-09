@@ -44,7 +44,7 @@ function App() {
       setloadingAuth(false);
     }
     fetchData();
-  }, []);
+  }, [setDataInfo,setAuthLogin,setloadingAuth]);
 
   return (
     <>

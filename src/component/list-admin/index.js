@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MaterialTable, { MTableToolbar } from "material-table";
-import { useLocalContext } from "../../context/context";
 import cookie from "react-cookies";
 
 const AdminList = () => {
@@ -42,7 +41,7 @@ const AdminList = () => {
       searchable: false,
       render: (rowData) => (
         <div>
-          {!rowData.createAt ? "8/1/2022 03:24:00 PM" : rowData.createAt}
+          {!rowData.createAt ? "1/7/2022 03:24:00 PM" : rowData.createAt}
         </div>
       ),
     },

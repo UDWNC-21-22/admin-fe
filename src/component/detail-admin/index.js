@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { list_admin } from "../../dummy-data/admin";
 import "./index.css";
+import cookie from "react-cookies";
 
 const AdminDetail = () => {
   const {adminId} = useParams();
+  const list_admin = cookie.load("list_admin");
+
   const admin = list_admin.find((acc) => (acc.id === adminId));
 
   console.log(admin)
-  const fullname = admin?.fullName;
+  const fullname = admin?.fullname;
   const email = admin?.email;
   const username = admin?.username;
-  const createAt = admin?.createAt;
+  let createAt = admin?.createAt;
 
+  if (!createAt){
+    createAt="1/7/2022 03:24:00 PM" 
+  }
+  
   return (
     <div>
       <h1 align="center">Admin Detail</h1>

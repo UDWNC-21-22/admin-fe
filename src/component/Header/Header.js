@@ -22,7 +22,7 @@ import authApi from "../../apis/auth.api";
 import cookie from 'react-cookies';
 import { useLocalContext } from "../../context/context";
 
-const Header = (isLogin, { children }) => {
+const Header = ({ children }) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -60,9 +60,6 @@ const Header = (isLogin, { children }) => {
 
   return (
     <>
-      {!isLogin ? (
-        <></>
-      ) : (
         <div className={classes.root}>
           <AppBar className={classes.appBar} position="static">
             <Toolbar className={classes.toolbar}>
@@ -126,7 +123,6 @@ const Header = (isLogin, { children }) => {
             </Toolbar>
           </AppBar>
         </div>
-      )}
     </>
   );
 };

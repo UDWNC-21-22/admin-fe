@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import MaterialTable from "material-table";
-import { list_user } from "../../dummy-data/user";
 import { Block } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import cookie from "react-cookies";
 
 const UserList = () => {
   const navigate=useNavigate()
-  
+  const list_user = cookie.load("list_user");
+
   const [tableData, setTableData] = useState(list_user);
+  console.log(list_user);
 
   const columns = [
     {
@@ -22,7 +24,7 @@ const UserList = () => {
             width: "2rem"
           }}
         >
-          {rowData.id}
+          {rowData.id.slice(0,5)}
         </div>
       ),
     },
@@ -47,7 +49,7 @@ const UserList = () => {
           alignItems:'center'
         }}
       >
-        {rowData.createAt}
+          {!rowData.createAt ? "1/7/2022 03:24:00 PM" : rowData.createAt}
       </div>
     ), },
     {
@@ -73,10 +75,14 @@ const UserList = () => {
   ];
 
   return (
-    <div>
+    <>
+    {!list_user ? (
+      <></>
+    ) : (
+      <div>
       <h1 align="center">User List</h1>
 
-      <MaterialTable
+      {/* <MaterialTable
         columns={columns}
         data={tableData}
         editable={{
@@ -132,8 +138,10 @@ const UserList = () => {
             index % 2 === 0 ? { background: "#f5f5f5" } : null,
           headerStyle: { background: "#f44336", color: "#fff" },
         }}
-      />
+      /> */}
     </div>
+    )}
+  </>
   );
 };
 

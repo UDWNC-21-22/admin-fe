@@ -11,23 +11,125 @@ import AdminDetail from "./component/detail-admin";
 import UserDetail from "./component/detail-user";
 import ClassDetail from "./component/detail-class";
 import CreateAdmin from "./component/create-admin-account";
+import AuthMiddleware from "./middleware/auth.middleware";
+import cookie from "react-cookies";
+import authApi from "./apis/auth.api";
+import { useLocalContext } from "./context/context";
+
 function App() {
+  const { dataInfo, authLogin, setDataInfo, setAuthLogin } = useLocalContext();
+
+  const [loadingAuth, setloadingAuth] = useState(true);
+
+  // auto check access_token
+  useEffect(() => {
+    async function fetchData() {
+      let access_token = cookie.load("access_token");
+      if (!!access_token) {
+        try {
+          setloadingAuth(true);
+          let response = await authApi.authenticate();
+
+          setDataInfo(response.data);
+          setAuthLogin(true);
+
+          // set access_token to cookie
+          cookie.save("access_token", response.data?.access_token);
+          cookie.save("user_data", response.data);
+        } catch (err) {
+          console.log(err);
+          setAuthLogin(false);
+        }
+      }
+      setloadingAuth(false);
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
-      <Router>
-        <Header isLogin={'true'}/>
-        <Routes>
-        <Route exact path={"/"} element={<Home />} />
-        <Route exact path={"/login"} element={<Login />} />
-        <Route exact path={"/admin"} element={<AdminList/>}/>
-        <Route exact path={"/create-admin"} element={<CreateAdmin/>}/>
-        <Route exact path={"/admin/:adminId"} element={<AdminDetail/>}/>
-        <Route exact path={"/user"} element={<UserList/>}/>
-        <Route exact path={"/user/:userId"} element={<UserDetail/>}/>
-        <Route exact path={"/class"} element={<ClassList/>}/>
-        <Route exact path={"/class/:classId"} element={<ClassDetail/>}/>
-        </Routes>
-      </Router>
+      {!loadingAuth ? (
+        <Router>
+          <Header />
+          <Routes>
+            <Route exact path="/login" element={<Login />} />
+            <Route
+              exact
+              path="/"
+              element={
+                <AuthMiddleware>
+                  <Home />
+                </AuthMiddleware>
+              }
+            />
+            <Route
+              exact
+              path="/admin"
+              element={
+                <AuthMiddleware>
+                  <AdminList />
+                </AuthMiddleware>
+              }
+            />
+            <Route
+              exact
+              path="/create-admin"
+              element={
+                <AuthMiddleware>
+                  <CreateAdmin />
+                </AuthMiddleware>
+              }
+            />
+            <Route
+              exact
+              path="/admin/:adminId"
+              element={
+                <AuthMiddleware>
+                  <AdminDetail />
+                </AuthMiddleware>
+              }
+            />
+            <Route
+              exact
+              path="/user"
+              element={
+                <AuthMiddleware>
+                  <UserList />
+                </AuthMiddleware>
+              }
+            />
+            <Route
+              exact
+              path="/class"
+              element={
+                <AuthMiddleware>
+                  <ClassList />
+                </AuthMiddleware>
+              }
+            />            
+            <Route
+            exact
+            path="/class/:userId"
+            element={
+              <AuthMiddleware>
+                <UserDetail />
+              </AuthMiddleware>
+            }
+          />
+            <Route
+              exact
+              path="/class/:classId"
+              element={
+                <AuthMiddleware>
+                  <ClassDetail />
+                </AuthMiddleware>
+              }
+            />
+          </Routes>
+        </Router>
+      ) : (
+        <h3>Loading....</h3>
+      )}
     </>
   );
 }

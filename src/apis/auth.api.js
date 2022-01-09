@@ -46,12 +46,28 @@ const getListAdmin = async () => {
     })
 }
 
+const getListUser = async () => {
+    return AxiosBasic({
+        url: urls.getListUser,
+        method: 'GET'
+    })
+}
+
+const getListClass = async () => {
+    return AxiosBasic({
+        url: urls.getListClass,
+        method: 'GET'
+    })
+}
+
 const authApi = {
     login,
     register,
     logout,
     getInfo,
     getListAdmin,
+    getListClass,
+    getListUser
 }
 
 export default authApi

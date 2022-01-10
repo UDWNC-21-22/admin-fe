@@ -32,7 +32,9 @@ const Header = ({ children }) => {
   const handleCloseProfile = () => setAnchorElProfile(null);
 
   const {
-    setDataInfo
+    setDataInfo,
+    setAuthLogin,
+    authLogin
   } = useLocalContext();
 
   //Log out
@@ -42,6 +44,7 @@ const Header = ({ children }) => {
       cookie.remove('user_data');
       cookie.remove('access_token');
       setDataInfo({})
+      setAuthLogin(false);
       alert(mess?.message)
       navigate("/login")
     }
@@ -71,8 +74,10 @@ const Header = ({ children }) => {
                   </Typography>
                 </Link>
               </div>
-
-              <div className={classes.header__wrapper__right}>
+              
+              {
+                !authLogin?<></>:
+                <div className={classes.header__wrapper__right}>
                 <div>
                   <IconButton onClick={handleClickProfile}>
                     <Avatar />
@@ -120,6 +125,7 @@ const Header = ({ children }) => {
                   </Menu>
                 </div>
               </div>
+              }
             </Toolbar>
           </AppBar>
         </div>

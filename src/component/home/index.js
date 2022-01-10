@@ -67,6 +67,7 @@ const Home = () => {
           onClick={() => {
             adminClick();
           }}
+          style={{cursor: 'pointer'}}
         >
           <img className="img" src={admin} alt="" />
           <h1>Manage admin accounts</h1>
@@ -76,6 +77,7 @@ const Home = () => {
           onClick={() => {
             userClick();
           }}
+          style={{cursor: 'pointer'}}
         >
           <img className="img" src={user} alt="" />
           <h1>Manage user accounts</h1>
@@ -85,6 +87,7 @@ const Home = () => {
           onClick={() => {
             classClick();
           }}
+          style={{cursor: 'pointer'}}
         >
           <img className="img" src={classroom} alt="" />
           <h1>Manage classes</h1>

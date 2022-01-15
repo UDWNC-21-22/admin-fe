@@ -23,7 +23,11 @@ const AdminList = () => {
       }
   }
   fetchData()
-  }, [list_admin]);
+
+//   const interval = setInterval(() => {
+//   }, 5000);
+//  return () => clearInterval(interval);
+  }, []);
 
   const columns = [
     {
